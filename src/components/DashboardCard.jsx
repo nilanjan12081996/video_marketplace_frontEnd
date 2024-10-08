@@ -1,4 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
+import videojs from "video.js";
+import "video.js/dist/video-js.css";
 import {
   BiBot,
   BiDotsVerticalRounded,
@@ -38,8 +40,68 @@ import {
 import logo from "../assets/imagesource/logo.png";
 import { Link } from "react-router-dom";
 import { gridViewImg } from "../assets/images/images";
+import { useDispatch, useSelector } from "react-redux";
+import { getSingleVideo, videoListing } from "../reducers/VideoUploadSlice";
 
 const DashboardCard = () => {
+  const { loading, videoList, singleVideo } = useSelector(
+    (state) => state?.video
+  );
+  const [videoModal, setVideoModal] = useState(false);
+  const [videoid, setVideoId] = useState(null);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(videoListing());
+  }, []);
+  console.log("videoList", videoList);
+  const formatDate = (dateString) => {
+    return new Intl.DateTimeFormat("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "2-digit",
+    }).format(new Date(dateString));
+  };
+
+  const formatTime = (dateString) => {
+    return new Intl.DateTimeFormat("en-US", {
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true, // Ensures the time is in 12-hour format with AM/PM
+    }).format(new Date(dateString));
+  };
+  const handleVideoModal = (id) => {
+    dispatch(getSingleVideo({ id: id }));
+    setVideoModal(true);
+    setVideoId(id);
+  };
+  console.log("singleVideo", singleVideo);
+  const videoUrl = `${singleVideo?.baseUrl}/${singleVideo?.data?.[0]?.video}`;
+  console.log("videoUrl", videoUrl);
+  const videoRef = useRef(null);
+  const playerRef = useRef(null);
+  useEffect(() => {
+    // Only initialize player if videoUrl is valid and videoRef is available
+    if (videoUrl && videoRef.current) {
+      playerRef.current = videojs(videoRef.current, {
+        controls: true,
+        autoplay: false,
+        preload: "auto",
+        sources: [
+          {
+            src: videoUrl,
+            type: "application/x-mpegURL",
+          },
+        ],
+      });
+    }
+
+    // Cleanup function to dispose of the player
+    return () => {
+      if (playerRef.current) {
+        playerRef.current.dispose();
+      }
+    };
+  }, [videoUrl]);
   return (
     <div>
       <div className="grid grid-cols-3 gap-6">
@@ -390,409 +452,110 @@ const DashboardCard = () => {
             <TabPanel>
               <div className="grid_view_area">
                 <div className="grid grid-cols-3 gap-8">
-                  <div className="dash_grid_box p-2.5">
-                    <div className="mb-3">
-                      <img
-                        src={gridViewImg}
-                        alt="gridViewImg"
-                        className="w-full rounded-md"
-                      />
-                    </div>
-                    <div>
-                      <p className="text-[#333333] text-[15px] font-semibold pb-2">
-                        Lorem Ipsum is simply dummy text of the printing and
-                        typesetting industry.
-                      </p>
-                      <Link className="bg-[#f11c07] text-xs px-3 py-1 text-white mb-2 inline-block rounded-md hover:bg-[#702772]">
-                        Sports
-                      </Link>
-                      <ul className="mb-3">
-                        <li className="text-[#666666] text-sm">
-                          <span className="text-[#700f2a] text-sm uppercase font-semibold mr-2">
-                            quality{" "}
-                          </span>
-                          HD
-                        </li>
-                        <li className="text-[#666666] text-sm">
-                          <span className="text-[#700f2a] text-sm uppercase font-semibold mr-2">
-                            Licence
-                          </span>
-                          For Other UseOnly
-                        </li>
-                        <li className="text-[#666666] text-sm">
-                          <span className="text-[#700f2a] text-sm uppercase font-semibold mr-2">
-                            Rental Period
-                          </span>
-                          12 Months
-                        </li>
-                      </ul>
-                      <div className="flex justify-between items-center mb-6">
-                        <div className="w-6/12">
-                          <p className="text-sm text-[#d44c47] font-medium">
-                            October 03, 2024
-                          </p>
-                          <p className="text-sm text-[#666666] font-medium">
-                            09:19 AM
-                          </p>
+                  {videoList?.data?.map((vdos) => {
+                    return (
+                      <>
+                        <div className="dash_grid_box p-2.5">
+                          <div className="mb-3">
+                            <button onClick={() => handleVideoModal(vdos?.id)}>
+                              <img
+                                src={`${videoList?.baseUrl}/${vdos?.image}`}
+                                alt="gridViewImg"
+                                className="w-full rounded-md"
+                              />
+                            </button>
+                          </div>
+                          <div>
+                            <p className="text-[#333333] text-[15px] font-semibold pb-2">
+                              {vdos?.title}
+                            </p>
+                            <Link className="bg-[#f11c07] text-xs px-3 py-1 text-white mb-2 inline-block rounded-md hover:bg-[#702772]">
+                              {vdos?.catecategory != null
+                                ? vdos?.catecategory
+                                : "N/A"}
+                            </Link>
+                            <ul className="mb-3">
+                              <li className="text-[#666666] text-sm">
+                                <span className="text-[#700f2a] text-sm uppercase font-semibold mr-2">
+                                  quality{" "}
+                                </span>
+                                HD
+                              </li>
+                              <li className="text-[#666666] text-sm">
+                                <span className="text-[#700f2a] text-sm uppercase font-semibold mr-2">
+                                  Licence
+                                </span>
+                                For Other UseOnly
+                              </li>
+                              <li className="text-[#666666] text-sm">
+                                <span className="text-[#700f2a] text-sm uppercase font-semibold mr-2">
+                                  Rental Period
+                                </span>
+                                12 Months
+                              </li>
+                            </ul>
+                            <div className="flex justify-between items-center mb-6">
+                              <div className="w-6/12">
+                                <p className="text-sm text-[#d44c47] font-medium">
+                                  {formatDate(vdos?.created_at)}
+                                </p>
+                                <p className="text-sm text-[#666666] font-medium">
+                                  {formatTime(vdos?.created_at)}
+                                </p>
+                              </div>
+                              <div className="w-6/12">
+                                <p className="text-[#700f2a] text-sm uppercase font-semibold mr-2">
+                                  amount received
+                                </p>
+                                <p className="text-sm text-[#666666] font-medium">
+                                  $0
+                                </p>
+                              </div>
+                            </div>
+                            <div className="border-t border-[#e9e6e6] pt-2 flex justify-center items-center gap-2">
+                              <button className="bg-[#f11c07] text-xs px-4 py-2 text-white mb-0 inline-flex rounded-md hover:bg-[#702772] items-center">
+                                <MdEdit className="text-sm mr-1" />
+                                Edit
+                              </button>
+                              <button className="bg-[#f11c07] text-xs px-4 py-2 text-white mb-0 inline-flex rounded-md hover:bg-[#702772] items-center">
+                                <MdDelete className="text-sm mr-1" />
+                                Delete
+                              </button>
+                            </div>
+                          </div>
                         </div>
-                        <div className="w-6/12">
-                          <p className="text-[#700f2a] text-sm uppercase font-semibold mr-2">
-                            amount received
-                          </p>
-                          <p className="text-sm text-[#666666] font-medium">
-                            $0
-                          </p>
-                        </div>
-                      </div>
-                      <div className="border-t border-[#e9e6e6] pt-2 flex justify-center items-center gap-2">
-                        <button className="bg-[#f11c07] text-xs px-4 py-2 text-white mb-0 inline-flex rounded-md hover:bg-[#702772] items-center">
-                          <MdEdit className="text-sm mr-1" />
-                          Edit
-                        </button>
-                        <button className="bg-[#f11c07] text-xs px-4 py-2 text-white mb-0 inline-flex rounded-md hover:bg-[#702772] items-center">
-                          <MdDelete className="text-sm mr-1" />
-                          Delete
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="dash_grid_box p-2.5">
-                    <div className="mb-3">
-                      <img
-                        src={gridViewImg}
-                        alt="gridViewImg"
-                        className="w-full rounded-md"
-                      />
-                    </div>
-                    <div>
-                      <p className="text-[#333333] text-[15px] font-semibold pb-2">
-                        Lorem Ipsum is simply dummy text of the printing and
-                        typesetting industry.
-                      </p>
-                      <Link className="bg-[#f11c07] text-xs px-3 py-1 text-white mb-2 inline-block rounded-md hover:bg-[#702772]">
-                        Sports
-                      </Link>
-                      <ul className="mb-3">
-                        <li className="text-[#666666] text-sm">
-                          <span className="text-[#700f2a] text-sm uppercase font-semibold mr-2">
-                            quality{" "}
-                          </span>
-                          HD
-                        </li>
-                        <li className="text-[#666666] text-sm">
-                          <span className="text-[#700f2a] text-sm uppercase font-semibold mr-2">
-                            Licence
-                          </span>
-                          For Other UseOnly
-                        </li>
-                        <li className="text-[#666666] text-sm">
-                          <span className="text-[#700f2a] text-sm uppercase font-semibold mr-2">
-                            Rental Period
-                          </span>
-                          12 Months
-                        </li>
-                      </ul>
-                      <div className="flex justify-between items-center mb-6">
-                        <div className="w-6/12">
-                          <p className="text-sm text-[#d44c47] font-medium">
-                            October 03, 2024
-                          </p>
-                          <p className="text-sm text-[#666666] font-medium">
-                            09:19 AM
-                          </p>
-                        </div>
-                        <div className="w-6/12">
-                          <p className="text-[#700f2a] text-sm uppercase font-semibold mr-2">
-                            amount received
-                          </p>
-                          <p className="text-sm text-[#666666] font-medium">
-                            $0
-                          </p>
-                        </div>
-                      </div>
-                      <div className="border-t border-[#e9e6e6] pt-2 flex justify-center items-center gap-2">
-                        <button className="bg-[#f11c07] text-xs px-4 py-2 text-white mb-0 inline-flex rounded-md hover:bg-[#702772] items-center">
-                          <MdEdit className="text-sm mr-1" />
-                          Edit
-                        </button>
-                        <button className="bg-[#f11c07] text-xs px-4 py-2 text-white mb-0 inline-flex rounded-md hover:bg-[#702772] items-center">
-                          <MdDelete className="text-sm mr-1" />
-                          Delete
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="dash_grid_box p-2.5">
-                    <div className="mb-3">
-                      <img
-                        src={gridViewImg}
-                        alt="gridViewImg"
-                        className="w-full rounded-md"
-                      />
-                    </div>
-                    <div>
-                      <p className="text-[#333333] text-[15px] font-semibold pb-2">
-                        Lorem Ipsum is simply dummy text of the printing and
-                        typesetting industry.
-                      </p>
-                      <Link className="bg-[#f11c07] text-xs px-3 py-1 text-white mb-2 inline-block rounded-md hover:bg-[#702772]">
-                        Sports
-                      </Link>
-                      <ul className="mb-3">
-                        <li className="text-[#666666] text-sm">
-                          <span className="text-[#700f2a] text-sm uppercase font-semibold mr-2">
-                            quality{" "}
-                          </span>
-                          HD
-                        </li>
-                        <li className="text-[#666666] text-sm">
-                          <span className="text-[#700f2a] text-sm uppercase font-semibold mr-2">
-                            Licence
-                          </span>
-                          For Other UseOnly
-                        </li>
-                        <li className="text-[#666666] text-sm">
-                          <span className="text-[#700f2a] text-sm uppercase font-semibold mr-2">
-                            Rental Period
-                          </span>
-                          12 Months
-                        </li>
-                      </ul>
-                      <div className="flex justify-between items-center mb-6">
-                        <div className="w-6/12">
-                          <p className="text-sm text-[#d44c47] font-medium">
-                            October 03, 2024
-                          </p>
-                          <p className="text-sm text-[#666666] font-medium">
-                            09:19 AM
-                          </p>
-                        </div>
-                        <div className="w-6/12">
-                          <p className="text-[#700f2a] text-sm uppercase font-semibold mr-2">
-                            amount received
-                          </p>
-                          <p className="text-sm text-[#666666] font-medium">
-                            $0
-                          </p>
-                        </div>
-                      </div>
-                      <div className="border-t border-[#e9e6e6] pt-2 flex justify-center items-center gap-2">
-                        <button className="bg-[#f11c07] text-xs px-4 py-2 text-white mb-0 inline-flex rounded-md hover:bg-[#702772] items-center">
-                          <MdEdit className="text-sm mr-1" />
-                          Edit
-                        </button>
-                        <button className="bg-[#f11c07] text-xs px-4 py-2 text-white mb-0 inline-flex rounded-md hover:bg-[#702772] items-center">
-                          <MdDelete className="text-sm mr-1" />
-                          Delete
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="dash_grid_box p-2.5">
-                    <div className="mb-3">
-                      <img
-                        src={gridViewImg}
-                        alt="gridViewImg"
-                        className="w-full rounded-md"
-                      />
-                    </div>
-                    <div>
-                      <p className="text-[#333333] text-[15px] font-semibold pb-2">
-                        Lorem Ipsum is simply dummy text of the printing and
-                        typesetting industry.
-                      </p>
-                      <Link className="bg-[#f11c07] text-xs px-3 py-1 text-white mb-2 inline-block rounded-md hover:bg-[#702772]">
-                        Sports
-                      </Link>
-                      <ul className="mb-3">
-                        <li className="text-[#666666] text-sm">
-                          <span className="text-[#700f2a] text-sm uppercase font-semibold mr-2">
-                            quality{" "}
-                          </span>
-                          HD
-                        </li>
-                        <li className="text-[#666666] text-sm">
-                          <span className="text-[#700f2a] text-sm uppercase font-semibold mr-2">
-                            Licence
-                          </span>
-                          For Other UseOnly
-                        </li>
-                        <li className="text-[#666666] text-sm">
-                          <span className="text-[#700f2a] text-sm uppercase font-semibold mr-2">
-                            Rental Period
-                          </span>
-                          12 Months
-                        </li>
-                      </ul>
-                      <div className="flex justify-between items-center mb-6">
-                        <div className="w-6/12">
-                          <p className="text-sm text-[#d44c47] font-medium">
-                            October 03, 2024
-                          </p>
-                          <p className="text-sm text-[#666666] font-medium">
-                            09:19 AM
-                          </p>
-                        </div>
-                        <div className="w-6/12">
-                          <p className="text-[#700f2a] text-sm uppercase font-semibold mr-2">
-                            amount received
-                          </p>
-                          <p className="text-sm text-[#666666] font-medium">
-                            $0
-                          </p>
-                        </div>
-                      </div>
-                      <div className="border-t border-[#e9e6e6] pt-2 flex justify-center items-center gap-2">
-                        <button className="bg-[#f11c07] text-xs px-4 py-2 text-white mb-0 inline-flex rounded-md hover:bg-[#702772] items-center">
-                          <MdEdit className="text-sm mr-1" />
-                          Edit
-                        </button>
-                        <button className="bg-[#f11c07] text-xs px-4 py-2 text-white mb-0 inline-flex rounded-md hover:bg-[#702772] items-center">
-                          <MdDelete className="text-sm mr-1" />
-                          Delete
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="dash_grid_box p-2.5">
-                    <div className="mb-3">
-                      <img
-                        src={gridViewImg}
-                        alt="gridViewImg"
-                        className="w-full rounded-md"
-                      />
-                    </div>
-                    <div>
-                      <p className="text-[#333333] text-[15px] font-semibold pb-2">
-                        Lorem Ipsum is simply dummy text of the printing and
-                        typesetting industry.
-                      </p>
-                      <Link className="bg-[#f11c07] text-xs px-3 py-1 text-white mb-2 inline-block rounded-md hover:bg-[#702772]">
-                        Sports
-                      </Link>
-                      <ul className="mb-3">
-                        <li className="text-[#666666] text-sm">
-                          <span className="text-[#700f2a] text-sm uppercase font-semibold mr-2">
-                            quality{" "}
-                          </span>
-                          HD
-                        </li>
-                        <li className="text-[#666666] text-sm">
-                          <span className="text-[#700f2a] text-sm uppercase font-semibold mr-2">
-                            Licence
-                          </span>
-                          For Other UseOnly
-                        </li>
-                        <li className="text-[#666666] text-sm">
-                          <span className="text-[#700f2a] text-sm uppercase font-semibold mr-2">
-                            Rental Period
-                          </span>
-                          12 Months
-                        </li>
-                      </ul>
-                      <div className="flex justify-between items-center mb-6">
-                        <div className="w-6/12">
-                          <p className="text-sm text-[#d44c47] font-medium">
-                            October 03, 2024
-                          </p>
-                          <p className="text-sm text-[#666666] font-medium">
-                            09:19 AM
-                          </p>
-                        </div>
-                        <div className="w-6/12">
-                          <p className="text-[#700f2a] text-sm uppercase font-semibold mr-2">
-                            amount received
-                          </p>
-                          <p className="text-sm text-[#666666] font-medium">
-                            $0
-                          </p>
-                        </div>
-                      </div>
-                      <div className="border-t border-[#e9e6e6] pt-2 flex justify-center items-center gap-2">
-                        <button className="bg-[#f11c07] text-xs px-4 py-2 text-white mb-0 inline-flex rounded-md hover:bg-[#702772] items-center">
-                          <MdEdit className="text-sm mr-1" />
-                          Edit
-                        </button>
-                        <button className="bg-[#f11c07] text-xs px-4 py-2 text-white mb-0 inline-flex rounded-md hover:bg-[#702772] items-center">
-                          <MdDelete className="text-sm mr-1" />
-                          Delete
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="dash_grid_box p-2.5">
-                    <div className="mb-3">
-                      <img
-                        src={gridViewImg}
-                        alt="gridViewImg"
-                        className="w-full rounded-md"
-                      />
-                    </div>
-                    <div>
-                      <p className="text-[#333333] text-[15px] font-semibold pb-2">
-                        Lorem Ipsum is simply dummy text of the printing and
-                        typesetting industry.
-                      </p>
-                      <Link className="bg-[#f11c07] text-xs px-3 py-1 text-white mb-2 inline-block rounded-md hover:bg-[#702772]">
-                        Sports
-                      </Link>
-                      <ul className="mb-3">
-                        <li className="text-[#666666] text-sm">
-                          <span className="text-[#700f2a] text-sm uppercase font-semibold mr-2">
-                            quality{" "}
-                          </span>
-                          HD
-                        </li>
-                        <li className="text-[#666666] text-sm">
-                          <span className="text-[#700f2a] text-sm uppercase font-semibold mr-2">
-                            Licence
-                          </span>
-                          For Other UseOnly
-                        </li>
-                        <li className="text-[#666666] text-sm">
-                          <span className="text-[#700f2a] text-sm uppercase font-semibold mr-2">
-                            Rental Period
-                          </span>
-                          12 Months
-                        </li>
-                      </ul>
-                      <div className="flex justify-between items-center mb-6">
-                        <div className="w-6/12">
-                          <p className="text-sm text-[#d44c47] font-medium">
-                            October 03, 2024
-                          </p>
-                          <p className="text-sm text-[#666666] font-medium">
-                            09:19 AM
-                          </p>
-                        </div>
-                        <div className="w-6/12">
-                          <p className="text-[#700f2a] text-sm uppercase font-semibold mr-2">
-                            amount received
-                          </p>
-                          <p className="text-sm text-[#666666] font-medium">
-                            $0
-                          </p>
-                        </div>
-                      </div>
-                      <div className="border-t border-[#e9e6e6] pt-2 flex justify-center items-center gap-2">
-                        <button className="bg-[#f11c07] text-xs px-4 py-2 text-white mb-0 inline-flex rounded-md hover:bg-[#702772] items-center">
-                          <MdEdit className="text-sm mr-1" />
-                          Edit
-                        </button>
-                        <button className="bg-[#f11c07] text-xs px-4 py-2 text-white mb-0 inline-flex rounded-md hover:bg-[#702772] items-center">
-                          <MdDelete className="text-sm mr-1" />
-                          Delete
-                        </button>
-                      </div>
-                    </div>
-                  </div>
+                      </>
+                    );
+                  })}
                 </div>
               </div>
             </TabPanel>
           </div>
         </Tabs>
       </div>
+      {videoModal && (
+        <Modal
+          show={videoModal}
+          onClose={() => setVideoModal(false)}
+          size="4xl"
+        >
+          <Modal.Header>
+            <h1>Video</h1>
+          </Modal.Header>
+          <Modal.Body>
+            <div data-vjs-player className="text-center">
+              {videoUrl ? (
+                <video
+                  ref={videoRef}
+                  className="video-js vjs-big-play-centered w-full h-[500px]"
+                />
+              ) : (
+                <p>No video available</p>
+              )}
+            </div>
+          </Modal.Body>
+        </Modal>
+      )}
     </div>
   );
 };

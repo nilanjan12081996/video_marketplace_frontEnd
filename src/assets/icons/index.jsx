@@ -59,6 +59,7 @@ import {
   FaSackDollar,
   FaRegFileVideo,
   FaEnvelope,
+  FaDollarSign,
 } from "react-icons/fa6";
 
 import { LuUpload, LuDownload } from "react-icons/lu";
@@ -83,6 +84,7 @@ import { LiaPhoneVolumeSolid } from "react-icons/lia";
 import { HiMiniPlusCircle } from "react-icons/hi2";
 
 export {
+  FaDollarSign,
   BsPencilFill,
   HiMiniPlusCircle,
   MdKeyboardDoubleArrowRight,

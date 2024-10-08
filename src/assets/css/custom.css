@@ -369,6 +369,79 @@ body {
 
 /*  */
 
+
+.processCard .location_input input[type="text"] {
+  background: #ffffff;
+  border: none;
+  outline: none;
+  width: 100%;
+}
+.location_input input[type="text"]:focus {
+  box-shadow: none;
+}
+
+.processCard input[type="text"],
+.processCard input[type="file"],
+.processCard select,
+.processCard textarea {
+  border: #d4d4d4 1px solid;
+  background: #ffffff;
+}
+.processCard input[type="text"]:focus,
+.processCard input[type="file"],
+.processCard select:focus,
+.processCard textarea:focus {
+  box-shadow: none;
+}
+
+.popup_area input[type="text"] {
+  border: #d4d4d4 1px solid;
+  background: #ffffff;
+}
+.popup_area input[type="text"]:focus {
+  box-shadow: none;
+}
+
+.vdBox {
+  padding: 20px 20px 0 20px;
+  border: 1px solid #CECECE;
+  border-radius: 10px;
+  margin-bottom: 0;
+  position: relative;
+  padding-bottom: 0;
+  overflow: hidden;
+}
+.vdContent {
+  border-radius: 7px;
+  border: 1px solid #D4D4D4;
+  background: #F6F6F6;
+  padding: 7px;
+  text-align: center;
+  margin-top: 30px;
+}
+.vdContent p {
+  margin: 0;
+  font-size: 16px;
+  text-transform: uppercase;
+  line-height: 1.4;
+  margin-bottom: 5px;
+  letter-spacing: 0.1px;
+  font-weight: 400;
+}
+.vdContent h4 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 500;
+}
+
+.exclusive_not_section .text-cyan-600 {
+  color: #ff1a03;
+}
+.exclusive_not_section input[type="radio"] {
+  box-shadow: none;
+}
+
+
 @media screen and (min-width: 768px) {
   .dndflow {
     flex-direction: row;

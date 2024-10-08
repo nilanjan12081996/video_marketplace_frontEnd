@@ -16,6 +16,7 @@ import Blog from '../pages/Blog/Blog.jsx';
 import Payments from '../pages/Payments/Payments.jsx';
 import AccountSettings from '../pages/AccountSettings/AccountSettings.jsx';
 import UserActivation from '../pages/Signup/UserActivation.jsx';
+import ProjectCreateMain from '../pages/ProjectCreate/ProjectCreationMain.jsx';
 
 const Home = React.lazy(() => import('../pages/Home/home.jsx'));
 
@@ -162,7 +163,7 @@ const allRoutes = [
     children: [
       {
         index: true,
-        element: <ProjectCreate />
+        element: <ProjectCreateMain />
       },
     ],
   },
