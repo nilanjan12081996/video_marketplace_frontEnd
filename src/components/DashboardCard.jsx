@@ -246,204 +246,56 @@ const DashboardCard = () => {
                       </Table.HeadCell>
                     </Table.Head>
                     <Table.Body className="divide-y">
-                      <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                        <Table.Cell className="font-semibold text-[#702772] flex items-center py-7">
-                          <FaRegFileVideo className="text-[#ff1a03] mr-1" />
-                          Title
-                        </Table.Cell>
-                        <Table.Cell>
-                          <Link className="bg-[#f11c07] text-sm mt-1 px-4 py-1.5 text-white mb-2 inline-block rounded-md hover:bg-[#702772]">
-                            Food
-                          </Link>
-                        </Table.Cell>
-                        <Table.Cell className="text-[#8898aa]">HD</Table.Cell>
-                        <Table.Cell className="text-[#8898aa]">
-                          For other user only
-                        </Table.Cell>
-                        <Table.Cell className="text-[#8898aa]">
-                          12 Months
-                        </Table.Cell>
-                        <Table.Cell>
-                          <p className="text-[#8898aa]">October 03, 2024</p>
-                          <p className="text-[#8898aa]">09:19 AM</p>
-                        </Table.Cell>
-                        <Table.Cell className="text-[#8898aa]">$0</Table.Cell>
-                        <Table.Cell>
-                          <div className="flex items-center justify-center">
-                            <button className="bg-white text-xs px-2 py-2 text-[#f11c07] border border-[#f11c07] mb-0 flex rounded-md hover:bg-[#f11c07] hover:text-white items-center mr-2 justify-center">
-                              <MdEdit className="text-base mr-0" />
-                            </button>
-                            <button className="bg-white text-xs px-2 py-2 text-[#f11c07] border border-[#f11c07] mb-0 flex rounded-md hover:bg-[#f11c07] hover:text-white items-center justify-center">
-                              <MdDelete className="text-base mr-0" />
-                            </button>
-                          </div>
-                        </Table.Cell>
-                      </Table.Row>
-                      <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                        <Table.Cell className="font-semibold text-[#702772] flex items-center py-7">
-                          <FaRegFileVideo className="text-[#ff1a03] mr-1" />
-                          Title
-                        </Table.Cell>
-                        <Table.Cell>
-                          <Link className="bg-[#f11c07] text-sm mt-1 px-4 py-1.5 text-white mb-2 inline-block rounded-md hover:bg-[#702772]">
-                            Food
-                          </Link>
-                        </Table.Cell>
-                        <Table.Cell className="text-[#8898aa]">HD</Table.Cell>
-                        <Table.Cell className="text-[#8898aa]">
-                          For other user only
-                        </Table.Cell>
-                        <Table.Cell className="text-[#8898aa]">
-                          12 Months
-                        </Table.Cell>
-                        <Table.Cell>
-                          <p className="text-[#8898aa]">October 03, 2024</p>
-                          <p className="text-[#8898aa]">09:19 AM</p>
-                        </Table.Cell>
-                        <Table.Cell className="text-[#8898aa]">$0</Table.Cell>
-                        <Table.Cell>
-                          <div className="flex items-center justify-center">
-                            <button className="bg-white text-xs px-2 py-2 text-[#f11c07] border border-[#f11c07] mb-0 flex rounded-md hover:bg-[#f11c07] hover:text-white items-center mr-2 justify-center">
-                              <MdEdit className="text-base mr-0" />
-                            </button>
-                            <button className="bg-white text-xs px-2 py-2 text-[#f11c07] border border-[#f11c07] mb-0 flex rounded-md hover:bg-[#f11c07] hover:text-white items-center justify-center">
-                              <MdDelete className="text-base mr-0" />
-                            </button>
-                          </div>
-                        </Table.Cell>
-                      </Table.Row>
-                      <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                        <Table.Cell className="font-semibold text-[#702772] flex items-center py-7">
-                          <FaRegFileVideo className="text-[#ff1a03] mr-1" />
-                          Title
-                        </Table.Cell>
-                        <Table.Cell>
-                          <Link className="bg-[#f11c07] text-sm mt-1 px-4 py-1.5 text-white mb-2 inline-block rounded-md hover:bg-[#702772]">
-                            Food
-                          </Link>
-                        </Table.Cell>
-                        <Table.Cell className="text-[#8898aa]">HD</Table.Cell>
-                        <Table.Cell className="text-[#8898aa]">
-                          For other user only
-                        </Table.Cell>
-                        <Table.Cell className="text-[#8898aa]">
-                          12 Months
-                        </Table.Cell>
-                        <Table.Cell>
-                          <p className="text-[#8898aa]">October 03, 2024</p>
-                          <p className="text-[#8898aa]">09:19 AM</p>
-                        </Table.Cell>
-                        <Table.Cell className="text-[#8898aa]">$0</Table.Cell>
-                        <Table.Cell>
-                          <div className="flex items-center justify-center">
-                            <button className="bg-white text-xs px-2 py-2 text-[#f11c07] border border-[#f11c07] mb-0 flex rounded-md hover:bg-[#f11c07] hover:text-white items-center mr-2 justify-center">
-                              <MdEdit className="text-base mr-0" />
-                            </button>
-                            <button className="bg-white text-xs px-2 py-2 text-[#f11c07] border border-[#f11c07] mb-0 flex rounded-md hover:bg-[#f11c07] hover:text-white items-center justify-center">
-                              <MdDelete className="text-base mr-0" />
-                            </button>
-                          </div>
-                        </Table.Cell>
-                      </Table.Row>
-                      <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                        <Table.Cell className="font-semibold text-[#702772] flex items-center py-7">
-                          <FaRegFileVideo className="text-[#ff1a03] mr-1" />
-                          Title
-                        </Table.Cell>
-                        <Table.Cell>
-                          <Link className="bg-[#f11c07] text-sm mt-1 px-4 py-1.5 text-white mb-2 inline-block rounded-md hover:bg-[#702772]">
-                            Food
-                          </Link>
-                        </Table.Cell>
-                        <Table.Cell className="text-[#8898aa]">HD</Table.Cell>
-                        <Table.Cell className="text-[#8898aa]">
-                          For other user only
-                        </Table.Cell>
-                        <Table.Cell className="text-[#8898aa]">
-                          12 Months
-                        </Table.Cell>
-                        <Table.Cell>
-                          <p className="text-[#8898aa]">October 03, 2024</p>
-                          <p className="text-[#8898aa]">09:19 AM</p>
-                        </Table.Cell>
-                        <Table.Cell className="text-[#8898aa]">$0</Table.Cell>
-                        <Table.Cell>
-                          <div className="flex items-center justify-center">
-                            <button className="bg-white text-xs px-2 py-2 text-[#f11c07] border border-[#f11c07] mb-0 flex rounded-md hover:bg-[#f11c07] hover:text-white items-center mr-2 justify-center">
-                              <MdEdit className="text-base mr-0" />
-                            </button>
-                            <button className="bg-white text-xs px-2 py-2 text-[#f11c07] border border-[#f11c07] mb-0 flex rounded-md hover:bg-[#f11c07] hover:text-white items-center justify-center">
-                              <MdDelete className="text-base mr-0" />
-                            </button>
-                          </div>
-                        </Table.Cell>
-                      </Table.Row>
-                      <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                        <Table.Cell className="font-semibold text-[#702772] flex items-center py-7">
-                          <FaRegFileVideo className="text-[#ff1a03] mr-1" />
-                          Title
-                        </Table.Cell>
-                        <Table.Cell>
-                          <Link className="bg-[#f11c07] text-sm mt-1 px-4 py-1.5 text-white mb-2 inline-block rounded-md hover:bg-[#702772]">
-                            Food
-                          </Link>
-                        </Table.Cell>
-                        <Table.Cell className="text-[#8898aa]">HD</Table.Cell>
-                        <Table.Cell className="text-[#8898aa]">
-                          For other user only
-                        </Table.Cell>
-                        <Table.Cell className="text-[#8898aa]">
-                          12 Months
-                        </Table.Cell>
-                        <Table.Cell>
-                          <p className="text-[#8898aa]">October 03, 2024</p>
-                          <p className="text-[#8898aa]">09:19 AM</p>
-                        </Table.Cell>
-                        <Table.Cell className="text-[#8898aa]">$0</Table.Cell>
-                        <Table.Cell>
-                          <div className="flex items-center justify-center">
-                            <button className="bg-white text-xs px-2 py-2 text-[#f11c07] border border-[#f11c07] mb-0 flex rounded-md hover:bg-[#f11c07] hover:text-white items-center mr-2 justify-center">
-                              <MdEdit className="text-base mr-0" />
-                            </button>
-                            <button className="bg-white text-xs px-2 py-2 text-[#f11c07] border border-[#f11c07] mb-0 flex rounded-md hover:bg-[#f11c07] hover:text-white items-center justify-center">
-                              <MdDelete className="text-base mr-0" />
-                            </button>
-                          </div>
-                        </Table.Cell>
-                      </Table.Row>
-                      <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
-                        <Table.Cell className="font-semibold text-[#702772] flex items-center py-7">
-                          <FaRegFileVideo className="text-[#ff1a03] mr-1" />
-                          Title
-                        </Table.Cell>
-                        <Table.Cell>
-                          <Link className="bg-[#f11c07] text-sm mt-1 px-4 py-1.5 text-white mb-2 inline-block rounded-md hover:bg-[#702772]">
-                            Food
-                          </Link>
-                        </Table.Cell>
-                        <Table.Cell className="text-[#8898aa]">HD</Table.Cell>
-                        <Table.Cell className="text-[#8898aa]">
-                          For other user only
-                        </Table.Cell>
-                        <Table.Cell className="text-[#8898aa]">
-                          12 Months
-                        </Table.Cell>
-                        <Table.Cell>
-                          <p className="text-[#8898aa]">October 03, 2024</p>
-                          <p className="text-[#8898aa]">09:19 AM</p>
-                        </Table.Cell>
-                        <Table.Cell className="text-[#8898aa]">$0</Table.Cell>
-                        <Table.Cell>
-                          <div className="flex items-center justify-center">
-                            <button className="bg-white text-xs px-2 py-2 text-[#f11c07] border border-[#f11c07] mb-0 flex rounded-md hover:bg-[#f11c07] hover:text-white items-center mr-2 justify-center">
-                              <MdEdit className="text-base mr-0" />
-                            </button>
-                            <button className="bg-white text-xs px-2 py-2 text-[#f11c07] border border-[#f11c07] mb-0 flex rounded-md hover:bg-[#f11c07] hover:text-white items-center justify-center">
-                              <MdDelete className="text-base mr-0" />
-                            </button>
-                          </div>
-                        </Table.Cell>
-                      </Table.Row>
+                      {videoList?.data?.map((vdos) => {
+                        return (
+                          <>
+                            <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800">
+                              <Table.Cell className="font-semibold text-[#702772] flex items-center py-7">
+                                <FaRegFileVideo className="text-[#ff1a03] mr-1" />
+                                {vdos?.title}
+                              </Table.Cell>
+                              <Table.Cell>
+                                <Link className="bg-[#f11c07] text-sm mt-1 px-4 py-1.5 text-white mb-2 inline-block rounded-md hover:bg-[#702772]">
+                                  {vdos?.catecategory != null
+                                    ? vdos?.catecategory
+                                    : "N/A"}
+                                </Link>
+                              </Table.Cell>
+                              <Table.Cell className="text-[#8898aa]">
+                                HD
+                              </Table.Cell>
+                              <Table.Cell className="text-[#8898aa]">
+                                For other user only
+                              </Table.Cell>
+                              <Table.Cell className="text-[#8898aa]">
+                                12 Months
+                              </Table.Cell>
+                              <Table.Cell>
+                                <p className="text-[#8898aa]">
+                                  {formatDate(vdos?.created_at)}
+                                </p>
+                                <p className="text-[#8898aa]">
+                                  {" "}
+                                  {formatTime(vdos?.created_at)}
+                                </p>
+                              </Table.Cell>
+                              <Table.Cell className="text-[#8898aa]">
+                                $0
+                              </Table.Cell>
+                              <Table.Cell>
+                                <div className="flex items-center justify-center">
+                                  <button className="bg-white text-xs px-2 py-2 text-[#f11c07] border border-[#f11c07] mb-0 flex rounded-md hover:bg-[#f11c07] hover:text-white items-center mr-2 justify-center">
+                                    <MdEdit className="text-base mr-0" />
+                                  </button>
+                                  <button className="bg-white text-xs px-2 py-2 text-[#f11c07] border border-[#f11c07] mb-0 flex rounded-md hover:bg-[#f11c07] hover:text-white items-center justify-center">
+                                    <MdDelete className="text-base mr-0" />
+                                  </button>
+                                </div>
+                              </Table.Cell>
+                            </Table.Row>
+                          </>
+                        );
+                      })}
                     </Table.Body>
                   </Table>
                 </div>

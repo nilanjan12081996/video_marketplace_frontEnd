@@ -18,7 +18,7 @@ import {
   IoLocationSharp,
 } from "../../assets/icons";
 
-const ProjectCreateLicenseprice = () => {
+const ProjectCreateLicenseprice = ({ projectId }) => {
   return (
     <div>
       <div className="processCard">
@@ -39,8 +39,8 @@ const ProjectCreateLicenseprice = () => {
                   </div>
                   <div className="mb-4">
                     <Select id="" required>
-                      <option>HD</option>
-                      <option>4K</option>
+                      <option value="1">HD</option>
+                      <option value="2">4K</option>
                     </Select>
                   </div>
                   <div className="location_input border border-[#d4d4d4] bg-white rounded-md flex justify-start items-center">

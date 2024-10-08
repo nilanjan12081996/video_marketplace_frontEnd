@@ -10,7 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { toast, ToastContainer } from "react-toastify";
 import ProjectCreateDetails from "./ProjectCreateDetails";
 import ProjectCreateLicenseprice from "./ProjectCreateLicenseprice";
-const ProjectCreate = ({ setShow }) => {
+const ProjectCreate = ({ setShow, setProjectId }) => {
   const [videoFile, setVideoFile] = useState(null);
   const [fileName, setFileName] = useState(null);
   const [isSvideoUpload, setisSvideoUpload] = useState(false);
@@ -50,6 +50,7 @@ const ProjectCreate = ({ setShow }) => {
       console.log("Form Data Res: ", res);
       if (res.payload.status_code === 201 || res.payload.status_code === 200) {
         setProductId(res?.payload?.project_id);
+        setProjectId(res?.payload?.project_id);
         setShow({
           ProjectCreate: false,
           ProjectCreateDetails: true,
